@@ -101,7 +101,7 @@ textarea {
   min-height: 490px;
   max-width: 350px; 
   max-height: 500px;
-  background-color: pink;
+  background-color: rgb(248, 209, 215);
   position: absolute;
   top: 50%;
   left: 50%;
