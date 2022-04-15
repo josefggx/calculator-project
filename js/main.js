@@ -46,66 +46,58 @@ let operationPressed = false;
 let decimalPressed = false;
 let zeroPressed = false;
 
-
-
-const blockingZeroForNumberOne = () => {
-    if(mainDisplay.innerHTML === "0") {
-        numberOne = numberOne.substring(1);
-        mainDisplay.innerHTML = numberOne;
-        numberPressed = true;
-        operationPressed = false;
-    }
-}
-
 // Selecting All buttons
 const numberButtons = document.querySelectorAll('.number-btn');
 const decimalButton = document.querySelector('.decimal-btn');
 const zeroButton = document.querySelector('#zero')
-numberButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        blockingZeroForNumberOne();
-        numberOne = `${numberOne}${button.textContent}`
-        mainDisplay.innerHTML = numberOne;
-        numberPressed = true;
-        operationPressed = false;
-        if(numberOne !== "0") {
-            // @ts-ignore
-            zeroButton.disabled = false;
-            // @ts-ignore
-        } else if(numberOne === "0" && decimalButton.disabled === false) {
-            // @ts-ignore
-            zeroButton.disabled = true;
-        }
-        if(numberOne === ".") {
-            decimalPressed = true;
-            if(decimalPressed) {
+// @ts-ignore
+zeroButton.disabled = true;
+
+const functionality = () => {
+    numberButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            numberOne = `${numberOne}${button.textContent}`
+            mainDisplay.innerHTML = numberOne;
+            numberPressed = true;
+            operationPressed = false;
+            if(numberOne !== "0") {
                 // @ts-ignore
-                decimalButton.disabled = true;
-                numberOne = `0${button.textContent}`
-                mainDisplay.innerHTML = numberOne;
-            }
-        }
-        decimalButton.addEventListener('click', () => {
-            decimalPressed = true;
-            if(decimalPressed) {
+                zeroButton.disabled = false;
                 // @ts-ignore
-                decimalButton.disabled = true;
+            } else if(numberOne === "0" && decimalButton.disabled === false) {
+                // @ts-ignore
+                zeroButton.disabled = true;
             }
-        })
-        // @ts-ignore
-        if(decimalButton.disabled === true) {
-            zeroButton.addEventListener('click', () => {
-                if(zeroPressed) {
+            if(mainDisplay.innerHTML === ".") {
+                decimalPressed = true;
+                if(decimalPressed) {
                     // @ts-ignore
-                    zeroButton.disabled = true;
+                    decimalButton.disabled = true;
+                    numberOne = `0${button.textContent}`
+                    mainDisplay.innerHTML = numberOne;
+                }
+            }
+            decimalButton.addEventListener('click', () => {
+                decimalPressed = true;
+                if(decimalPressed) {
+                    // @ts-ignore
+                    decimalButton.disabled = true;
                 }
             })
-        }
+            // @ts-ignore
+            if(decimalButton.disabled === true) {
+                zeroButton.addEventListener('click', () => {
+                    if(zeroPressed) {
+                        // @ts-ignore
+                        zeroButton.disabled = true;
+                    }
+                })
+            }
+        });
     });
-});
+}
 
-
-
+functionality();
 
 const operationButtons = document.querySelectorAll('.operation-btn');
 operationButtons.forEach((button) => {
@@ -126,6 +118,10 @@ operationButtons.forEach((button) => {
                 }
             })
         }
+        if(numberOne == "0") {
+            // @ts-ignore
+            zeroButton.disabled = false;
+        }
         secNumber();
         numberPressed = false;
         operationPressed = true;
@@ -139,16 +135,6 @@ const secNumber = () => {
     if(secDisplay.innerHTML !== '') {
         numberButtons.forEach((button) => {
             // @ts-ignore
-            if(decimalButton.disabled === false) {
-                zeroButton.addEventListener('click', () => {
-                    // @ts-ignore
-                    zeroButton.disabled = true;
-                })
-            // @ts-ignore
-            } else if(decimalButton.disabled === true) {
-                // @ts-ignore
-                zeroButton.disabled = false;
-            }
             button.addEventListener('click', () => {
                 if(numberTwo === "0") {
                     numberTwo = numberTwo.substring(1);
@@ -158,28 +144,36 @@ const secNumber = () => {
                 }
                 numberTwo = `${numberTwo}${button.textContent}`
                 mainDisplay.innerHTML = numberTwo;
+                if(mainDisplay.innerHTML === ".") {
+                    decimalPressed = true;
+                    if(decimalPressed) {
+                        // @ts-ignore
+                        decimalButton.disabled = true;
+                        numberTwo = `0${button.textContent}`
+                        mainDisplay.innerHTML = numberTwo;
+                    }
+                }
             });
         });
     }
 }
 
 const resetDisplayAfterEqual = () => {
-    let numberTwo = "";
+    numberOne = "";
+    let newNumber = "";
     numberButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            numberTwo = `${numberTwo}${button.textContent}`
-            mainDisplay.innerHTML = numberTwo;
+            if(newNumber == ".") {
+                newNumber = `0${newNumber}`;
+            }
+            if(newNumber == "0") {
+                newNumber = ``;
+            }
+            newNumber = `${newNumber}${button.textContent}`
+            mainDisplay.innerHTML = newNumber;
         });
     });
 }
-
-// const cleanMainDisplay = () => {
-//     numberOne = "";
-//     numberTwo = "";
-//     mainDisplay.innerHTML = "";
-// }
-
-let latestValue;
 
 const resultFunction = () => {
     if(numberPressed) {
@@ -201,6 +195,9 @@ const resultFunction = () => {
             numberOne = "";
             // @ts-ignore
             decimalButton.disabled = false;
+        } else if(result == 0) {
+            numberOne = "";
+            mainDisplay.innerHTML = "0";
         } else {
             // @ts-ignore
             mainDisplay.innerHTML = result;
@@ -213,8 +210,25 @@ const resultFunction = () => {
             mainDisplay.innerHTML = numberTwo;
         }
     } else {
-        mainDisplay.innerHTML = numberOne;
+        if(mainDisplay.innerHTML == "0") {
+            mainDisplay.innerHTML = "0";
+        } else {
+            mainDisplay.innerHTML = numberOne;
+        }
     }
+    numberButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if(mainDisplay.innerHTML === ".") {
+                decimalPressed = true;
+                if(decimalPressed) {
+                    // @ts-ignore
+                    decimalButton.disabled = true;
+                    numberOne = `0${button.textContent}`
+                    mainDisplay.innerHTML = numberOne;
+                }
+            }
+        });
+    });
 }
 
 const btnResult = document.querySelector("#equal");
@@ -222,4 +236,16 @@ btnResult.addEventListener('click', () => {
     resultFunction();
 });
 
+// Reload / Clear Function
+const reloadFunction = () => {
+    mainDisplay.innerHTML = "0";
+    secDisplay.innerHTML = "";
+    numberOne = "";
+    numberTwo = "";
+    return;
+}
 
+const clearButton = document.querySelector("#clear");
+clearButton.addEventListener('click', () => {
+    reloadFunction();
+})
