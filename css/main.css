@@ -163,6 +163,10 @@ textarea {
    border-radius: 125px;  
 }
 
+#delete > span {
+  display: none;
+}
+
 .sr-only {
   border: 0;
   clip: rect(0, 0, 0, 0);
