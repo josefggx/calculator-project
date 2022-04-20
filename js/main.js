@@ -62,7 +62,6 @@ const functionality = () => {
         if(mainDisplay.innerHTML.length <= 1) {
             mainDisplay.innerHTML = "0";
             numberOne = "";
-
         }
         else if(mainDisplay.innerHTML !== "0") {
             deleteThisNumber = mainDisplay.innerHTML;
@@ -70,9 +69,15 @@ const functionality = () => {
             numberOne = deleteThisNumber.slice(0, -1);
             mainDisplay.innerHTML = deletedNumber;
         }
+        if(!mainDisplay.innerHTML.includes(".")) {
+            // @ts-ignore
+            decimalButton.disabled = false;
+        }
     })
     numberButtons.forEach((button) => {
         button.addEventListener('click', () => {
+            // @ts-ignore
+            deleteBtn.disabled = false;
             numberOne = `${numberOne}${button.textContent}`
             mainDisplay.innerHTML = numberOne;
             numberPressed = true;
@@ -119,11 +124,13 @@ functionality();
 const operationButtons = document.querySelectorAll('.operation-btn');
 operationButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        // if(secDisplay.innerHTML !== '') { 
+        // @ts-ignore
+        if(!secDisplay.innerHTML == "") {
+            resultFunction();
+        }
+        // @ts-ignore
+        deleteBtn.disabled = true;
         numberOne = mainDisplay.innerHTML;
-        //     operation = button.textContent;
-        //     secDisplay.innerHTML = `${numberOne} ${operation}`;
-        // }
         operation = button.textContent;
         secDisplay.innerHTML = `${numberOne} ${operation}`;
         // @ts-ignore
@@ -296,6 +303,8 @@ const resultFunction = () => {
 const btnResult = document.querySelector("#equal");
 btnResult.addEventListener('click', () => {
     resultFunction();
+    // @ts-ignore
+    deleteBtn.disabled = true;
 });
 
 // Reload / Clear Function
