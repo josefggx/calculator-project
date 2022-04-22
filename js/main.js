@@ -132,7 +132,9 @@ operationButtons.forEach((button) => {
         deleteBtn.disabled = true;
         numberOne = mainDisplay.innerHTML;
         operation = button.textContent;
-        secDisplay.innerHTML = `${numberOne} ${operation}`;
+        if(mainDisplay.innerHTML !== "What are you doing?") {
+            secDisplay.innerHTML = `${numberOne} ${operation}`;
+        }
         // @ts-ignore
         if(decimalButton.disabled === true) {
             zeroButton.addEventListener('click', () => {
@@ -207,7 +209,11 @@ const deleteButton = () => {
 
 const resetDisplayAfterEqual = () => {
     numberOne = "";
-    let newNumber = "";
+    let newNumber = ""
+    if(mainDisplay.innerHTML == "What are you doing?") {
+        // @ts-ignore
+        operationButtons.disabled = true;
+    }
     deleteBtn.addEventListener("click", () => {
         if(mainDisplay.innerHTML === "0") {
             mainDisplay.innerHTML = "0";
@@ -216,6 +222,7 @@ const resetDisplayAfterEqual = () => {
         else if(mainDisplay.innerHTML !== "0") {
             deletedNumber = mainDisplay.innerHTML;
             newNumber = deletedNumber;
+            // @ts-ignore
         }
     })
     numberButtons.forEach((button) => {
@@ -231,6 +238,7 @@ const resetDisplayAfterEqual = () => {
         });
     });
 }
+
 
 const resultFunction = () => {
     if(numberPressed) {
@@ -258,9 +266,11 @@ const resultFunction = () => {
             resetDisplayAfterEqual();
         } else if(result == Infinity) {
             mainDisplay.innerHTML = "What are you doing?";
+            resetDisplayAfterEqual();
+            // @ts-ignore
+            operationButtons.disabled = true;
             // @ts-ignore
             decimalButton.disabled = false;
-            resetDisplayAfterEqual();
         } else if(mainDisplay.innerHTML == "What are you doing?") {
             numberOne = "";
             mainDisplay.innerHTML = "0";
