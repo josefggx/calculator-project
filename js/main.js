@@ -80,6 +80,7 @@ const functionality = () => {
             deleteBtn.disabled = false;
             numberOne = `${numberOne}${button.textContent}`
             mainDisplay.innerHTML = numberOne;
+            limitDisplay();
             numberPressed = true;
             operationPressed = false;
             if(numberOne !== "0") {
@@ -120,6 +121,14 @@ const functionality = () => {
 }
 
 functionality();
+
+const limitDisplay = () => {
+    if(mainDisplay.innerHTML.length >= 34) {
+        mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+    } else if(mainDisplay.innerHTML.length >= 17) {
+        mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+    }
+}
 
 const operationButtons = document.querySelectorAll('.operation-btn');
 operationButtons.forEach((button) => {
@@ -180,6 +189,11 @@ const secNumber = () => {
                 }
                 numberTwo = `${numberTwo}${button.textContent}`
                 mainDisplay.innerHTML = numberTwo;
+                if(numberTwo.length >= 34) {
+                    mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+                } else if(numberTwo.length >= 17) {
+                    mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+                }
                 if(mainDisplay.innerHTML === ".") {
                     decimalPressed = true;
                     if(decimalPressed) {
@@ -235,6 +249,11 @@ const resetDisplayAfterEqual = () => {
             }
             newNumber = `${newNumber}${button.textContent}`
             mainDisplay.innerHTML = newNumber;
+            if(newNumber.length >= 34) {
+                mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+            } else if(newNumber.length >= 17) {
+                mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+            }
         });
     });
 }
@@ -247,7 +266,6 @@ const resultFunction = () => {
         // @ts-ignore
         numberTwo = parseFloat(mainDisplay.innerHTML);
         let result = operate(operation, numberOne, numberTwo);
-        // console.log(numberOne, operation, numberTwo, "=", result);
         secDisplay.innerHTML = "";
         // secDisplay.innerHTML = `${secDisplay.innerHTML} ${numberTwo}`;
         if(mainDisplay.innerHTML.endsWith(".")) {
@@ -280,8 +298,12 @@ const resultFunction = () => {
             mainDisplay.innerHTML = result;
             // @ts-ignore
             decimalButton.disabled = false;
+            if(mainDisplay.innerHTML.length >= 34) {
+                mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+            } else if(mainDisplay.innerHTML.length >= 17) {
+                mainDisplay.innerHTML = parseFloat(mainDisplay.innerHTML).toExponential(4);
+            }
             resetDisplayAfterEqual();
-            // console.log(numberOne, operation, numberTwo, "=", result);
         }
         if(mainDisplay.innerHTML == "What are you doing?") {
             mainDisplay.innerHTML = "What are you doing?";
@@ -315,6 +337,7 @@ btnResult.addEventListener('click', () => {
     resultFunction();
     // @ts-ignore
     deleteBtn.disabled = true;
+    limitDisplay();
 });
 
 // Reload / Clear Function
