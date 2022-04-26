@@ -35,8 +35,12 @@ const operate = (operator, a, b) => {
     }
 }
 
+window.addEventListener('keydown', function (event) {
+    if(event.key == "Enter") event.preventDefault();
+});
+
 const mainDisplay = document.querySelector("#current-number");
-const secDisplay = document.querySelector("#last-operation")
+const secDisplay = document.querySelector("#last-operation");
 
 let numberOne = "";
 let numberTwo = "";
@@ -289,11 +293,13 @@ const resultFunction = () => {
             operationButtons.disabled = true;
             // @ts-ignore
             decimalButton.disabled = false;
-        } else if(mainDisplay.innerHTML == "What are you doing?") {
+        }
+        else if(mainDisplay.innerHTML == "What are you doing?") {
             numberOne = "";
             mainDisplay.innerHTML = "0";
             resetDisplayAfterEqual();
         } else {
+            limitDisplay();
             // @ts-ignore
             mainDisplay.innerHTML = result;
             // @ts-ignore
@@ -335,9 +341,11 @@ const resultFunction = () => {
 const btnResult = document.querySelector("#equal");
 btnResult.addEventListener('click', () => {
     resultFunction();
+    if(mainDisplay.innerHTML !== "What are you doing?") {
+        limitDisplay();
+    }
     // @ts-ignore
     deleteBtn.disabled = true;
-    limitDisplay();
 });
 
 // Reload / Clear Function
@@ -354,3 +362,121 @@ clearButton.addEventListener('click', () => {
     reloadFunction();
     resetDisplayAfterEqual();
 })
+
+const buttonZero = document.querySelector("#zero")
+const buttonOne = document.querySelector("#one");
+const buttonTwo = document.querySelector("#two");
+const buttonThree = document.querySelector("#three");
+const buttonFour = document.querySelector("#four");
+const buttonFive = document.querySelector("#five");
+const buttonSix = document.querySelector("#six");
+const buttonSeven = document.querySelector("#seven");
+const buttonEigth = document.querySelector("#eigth");
+const buttonNine = document.querySelector("#nine");
+const buttonModule = document.querySelector("#module");
+const buttonDelete = document.querySelector("#delete");
+const buttonClear = document.querySelector("#clear");
+const buttonDecimal = document.querySelector("#decimal-dot");
+const buttonEqual = document.querySelector("#equal");
+const buttonAdd = document.querySelector("#add");
+const buttonSubtract = document.querySelector("#subtract");
+const buttonMultiply = document.querySelector("#multiply");
+const buttonDivide = document.querySelector("#divide");
+
+window.addEventListener("keyup", function (event) {
+    if(event.key === "*") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonMultiply.click();
+    }
+    if(event.key === "/") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonDivide.click();
+    }
+    if(event.key === "-") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonSubtract.click();
+    }
+    if(event.key === "+") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonAdd.click();
+    }
+    if(event.key === "=" || event.key === "Enter") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonEqual.click();
+    }
+    if(event.key === ".") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonDecimal.click();
+    }
+    if(event.key === "%") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonModule.click();
+    }
+    if(event.key === "Backspace") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonDelete.click();
+    }
+    if(event.key === "Escape") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonClear.click();
+    }
+    if(event.key === "1") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonOne.click();
+    }
+    if(event.key === "2") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonTwo.click();
+    }
+    if(event.key === "3") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonThree.click();
+    }
+    if(event.key === "4") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonFour.click();
+    }
+    if(event.key === "5") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonFive.click();
+    }
+    if(event.key === "6") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonSix.click();
+    }
+    if(event.key === "7") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonSeven.click();
+    }
+    if(event.key === "8") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonEigth.click();
+    }
+    if(event.key === "9") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonNine.click();
+    }
+    if(event.key === "0") {
+        event.preventDefault();
+        // @ts-ignore
+        buttonZero.click();
+    }
+});
