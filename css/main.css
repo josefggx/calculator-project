@@ -96,13 +96,22 @@ textarea {
   Custom styles
    ========================================================================== */
 
+html {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, rgb(221, 255, 239) 0%, rgb(205, 255, 231) 60%, rgb(194, 255, 225) 100%);  
+}
+
 #calculator-container {
   min-width: 320px; 
   min-height: 490px;
   max-width: 350px; 
   max-height: 500px;
-  background-color: rgb(248, 209, 215);
-  position: absolute;
+  background: rgb(40,38,45);
+  background: linear-gradient(360deg, rgb(43, 43, 43) 0%, rgb(59, 57, 63) 60%, rgb(75, 73, 79) 100%);     
+  position: absolute; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -117,36 +126,36 @@ textarea {
   margin-top: 20px; 
   width: 270px;
   height: 110px;  
-  background-color: yellow;
+  background-color: rgb(214, 214, 214);
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow-wrap: break-word;
+  font-family: 'Roboto', sans-serif;
 }
 
 #last-operation {
   width: 270px;
   height: 40px; 
-  font-size: 2rem;
+  font-size: 2.2rem; 
   text-align: right;
   padding-right: 10px;
-  color: gray;
+  color: rgb(49, 49, 49);
 }
 
 #current-number {
   margin-top: 24px;  
   width: 270px; 
   height: 40px; 
-  font-size: 3rem;
+  font-size: 2.8rem; 
   color: rgb(0, 0, 0);
   text-align: right;
   padding-right: 10px;
-  line-height: 2.8rem;
+  
 }
 
-#button-container {
-  background-color: orange;
+#button-container { 
   width: 270px;
   display: grid;
   grid-template-columns: repeat(auto-fill, 60px);
@@ -157,14 +166,69 @@ textarea {
 .btn {
   width: 60px;
   height: 60px;
+  border: none;
   border-radius: 60px;
   cursor: pointer;
+  outline: none;
+  background: linear-gradient(180deg, #7F7F7F 0%, #4B4B4B 100%); 
+  color: #FFFFFF;
+  width: 60px;
+  font-size: 1.9rem; 
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s; 
 }
 
-#equal {
-   width: 125px;  
-   border-radius: 125px;  
+.btn:disabled {
+  border: none;
+  background: linear-gradient(180deg, #7F7F7F 0%, #4B4B4B 100%);
+  color: #FFFFFF;
+  width: 60px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
 }
+
+.btn:hover {
+  color:rgb(43, 43, 43);
+  background-image: none;;
+  background-color: rgb(222, 222, 222);
+  transform: translate(0px,1px);
+ }
+
+.btn:active {
+  transform: translate(0px, 2px);
+ }
+
+#equal {
+  background: linear-gradient(180deg, #00971e 0%, #01a222 100%);
+  width: 125px;  
+  border-radius: 125px;  
+}
+
+#equal:hover {
+  background-image: none;
+  background-color: rgb(104, 255, 99);
+ }
+
+ .operation-btn:hover {
+   background-image: none;
+  background-color: rgb(99, 226, 255);
+ } 
+
+#clear:hover { 
+  background-image: none;
+  background-color: rgb(255, 98, 98);
+ } 
+
+ #delete:hover { 
+  background-image: none;
+  background-color: rgb(255, 193, 99);
+ } 
 
 #delete > span {
   display: none;
