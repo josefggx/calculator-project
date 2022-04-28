@@ -13,4 +13,4 @@ favicon.ico
 package-lock.json
 package.json
 vendor
-normalize.css
+css/normalize.css
