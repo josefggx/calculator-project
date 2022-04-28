@@ -3,6 +3,7 @@
 # Useful .gitignore templates: https://github.com/github/gitignore
 node_modules
 dist
+img
 .cache
 doc
 plugins.js
@@ -13,4 +14,3 @@ favicon.ico
 package-lock.json
 package.json
 vendor
-css/normalize.css
